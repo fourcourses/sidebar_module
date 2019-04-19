@@ -1,16 +1,15 @@
 const SidebarInfo = require('./SidebarInfo');
-const Overview = require('./Overview');
 const faker = require('faker');
 const db = require('./index.js');
-const fs = require('fs');
-const { Parser } = require('json2csv');
+// const fs = require('fs');
+const createCsvWriter = require('csv-writer').createObjectCsvWriter;
 
 const sampleSidebarItems = [];
 const sampleOverviewItems = [];
 
 // poppulateItems creates 100 restaurants worth of data, all stored in sampleSidebarItems and sampleOverviewItems.
 
-const numberOfEntries = 5;
+const numberOfEntries = 100;
 console.time('Time to create JSON file w/ ', numberOfEntries, 'entries');
 
 const populateItems = () => {
@@ -49,36 +48,42 @@ const populateItems = () => {
     }
 
     sampleSidebarItems.push(newSidebarItem); 
-
-    // let newOverviewItem = {};
-
-    // newOverviewItem.restaurantId = restaurantId;
-    // newOverviewItem.name = faker.company.companyName();
-    // newOverviewItem.rating = (Math.random() * 5).toFixed(1);
-    // newOverviewItem.reviewCount = Math.floor(Math.random() * 2000);
-    // const minRange = Math.floor(Math.random() * 42) + 8;
-    // const maxRange = minRange + Math.floor(Math.random() * 10) + 5
-    // newOverviewItem.costRange = [minRange, maxRange];
-    // newOverviewItem.cuisines = newSidebarItem.cuisines[0];
-    // newOverviewItem.description = faker.lorem.paragraph();
-    // const tagCount = randRange(1, 3);
-    // let tags = [];
-    // for (let i = 0; i < tagCount; i++) {
-    //   const newTag = faker.commerce.productAdjective();
-    //   if (tags.indexOf(newTag) < 0) {
-    //     tags.push(newTag);
-    //   }
-    // }
-    // newOverviewItem.tags = tags;
-
-    // sampleOverviewItems.push(newOverviewItem);
   }
 }
 
 populateItems();
 
+
+const csvWriter = createCsvWriter({
+  path: __dirname + '/generatedData.csv',
+  header: [
+      {id: 'restaurantID', title: 'restaurantID'},
+      {id: 'address', title: 'address'},
+      {id: 'neighborhood', title: 'neighborhood'},
+      {id: 'crossStreet', title: 'crossStreet'},
+      {id: 'parking', title: 'parking'},
+      {id: 'dining', title: 'dining'},
+      {id: 'cuisines', title: 'cuisines'},
+      {id: 'hours', title: 'hours'},
+      {id: 'phone', title: 'phone'},
+      {id: 'website', title: 'website'},
+      {id: 'payment', title: 'payment'},
+      {id: 'dress', title: 'dress'},
+      {id: 'additional', title: 'additional'},
+      {id: 'chef', title: 'chef'},
+      {id: 'catering', title: 'catering'},
+      {id: 'privateFacilities', title: 'privateFacilities'},
+  ]
+});
+
+csvWriter.writeRecords(records)       // returns a promise
+  .then(() => {
+      console.log('...Done');
+  });
+
+
 exports.sampleSidebarItems = sampleSidebarItems;
-// const stringSampleSidebarItems = JSON.stringify(sampleSidebarItems);
+
 
 /* 
   Turn data from JSON TO CSV format, so it can be piped to a  csv file.
@@ -99,6 +104,5 @@ exports.sampleSidebarItems = sampleSidebarItems;
 //   console.timeEnd('Time to create JSON file w/ ', numberOfEntries, 'entries');
 //   return;
 // });
-
 
 // process.exit(0);
