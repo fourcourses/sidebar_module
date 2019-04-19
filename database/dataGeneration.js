@@ -5,11 +5,9 @@ const db = require('./index.js');
 const createCsvWriter = require('csv-writer').createObjectCsvWriter;
 
 const sampleSidebarItems = [];
-const sampleOverviewItems = [];
-
 // poppulateItems creates 100 restaurants worth of data, all stored in sampleSidebarItems and sampleOverviewItems.
 
-const numberOfEntries = 100;
+const numberOfEntries = 1;
 console.time('Time to create JSON file w/ ', numberOfEntries, 'entries');
 
 const populateItems = () => {
@@ -53,6 +51,7 @@ const populateItems = () => {
 
 populateItems();
 
+console.log('populate items: ', sampleSidebarItems)
 
 const csvWriter = createCsvWriter({
   path: __dirname + '/generatedData.csv',
@@ -76,33 +75,8 @@ const csvWriter = createCsvWriter({
   ]
 });
 
-csvWriter.writeRecords(records)       // returns a promise
+csvWriter.writeRecords(sampleSidebarItems)
   .then(() => {
       console.log('...Done');
   });
 
-
-exports.sampleSidebarItems = sampleSidebarItems;
-
-
-/* 
-  Turn data from JSON TO CSV format, so it can be piped to a  csv file.
-  
-
-
-*/
-
-// Console log for piping into gzip compression
-// console.log(stringSampleSidebarItems);
-
-
-// Write file for writing data into data.gz
-// fs.writeFile('sampleData.json', stringSampleSidebarItems, (err) => {
-//   if (err) {
-//     throw err;
-//   }
-//   console.timeEnd('Time to create JSON file w/ ', numberOfEntries, 'entries');
-//   return;
-// });
-
-// process.exit(0);
