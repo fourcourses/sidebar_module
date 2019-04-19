@@ -3,17 +3,21 @@ const Overview = require('./Overview');
 const faker = require('faker');
 const db = require('./index.js');
 const fs = require('fs');
+const { Parser } = require('json2csv');
 
 const sampleSidebarItems = [];
 const sampleOverviewItems = [];
 
 // poppulateItems creates 100 restaurants worth of data, all stored in sampleSidebarItems and sampleOverviewItems.
 
-console.time('Time to seed');
+const numberOfEntries = 5;
+console.time('Time to create JSON file w/ ', numberOfEntries, 'entries');
 
 const populateItems = () => {
+  
+
   const randRange = (min, max) => (Math.floor(Math.random() * (max + 1 - min)) + min);
-  for (let restaurantId = 1; restaurantId <= 1000; restaurantId += 1) {
+  for (let restaurantId = 1; restaurantId <= numberOfEntries; restaurantId += 1) {
     let newSidebarItem = {};
 
     newSidebarItem.restaurantId = restaurantId;
@@ -46,59 +50,55 @@ const populateItems = () => {
 
     sampleSidebarItems.push(newSidebarItem); 
 
-    let newOverviewItem = {};
+    // let newOverviewItem = {};
 
-    newOverviewItem.restaurantId = restaurantId;
-    newOverviewItem.name = faker.company.companyName();
-    newOverviewItem.rating = (Math.random() * 5).toFixed(1);
-    newOverviewItem.reviewCount = Math.floor(Math.random() * 2000);
-    const minRange = Math.floor(Math.random() * 42) + 8;
-    const maxRange = minRange + Math.floor(Math.random() * 10) + 5
-    newOverviewItem.costRange = [minRange, maxRange];
-    newOverviewItem.cuisines = newSidebarItem.cuisines[0];
-    newOverviewItem.description = faker.lorem.paragraph();
-    const tagCount = randRange(1, 3);
-    let tags = [];
-    for (let i = 0; i < tagCount; i++) {
-      const newTag = faker.commerce.productAdjective();
-      if (tags.indexOf(newTag) < 0) {
-        tags.push(newTag);
-      }
-    }
-    newOverviewItem.tags = tags;
+    // newOverviewItem.restaurantId = restaurantId;
+    // newOverviewItem.name = faker.company.companyName();
+    // newOverviewItem.rating = (Math.random() * 5).toFixed(1);
+    // newOverviewItem.reviewCount = Math.floor(Math.random() * 2000);
+    // const minRange = Math.floor(Math.random() * 42) + 8;
+    // const maxRange = minRange + Math.floor(Math.random() * 10) + 5
+    // newOverviewItem.costRange = [minRange, maxRange];
+    // newOverviewItem.cuisines = newSidebarItem.cuisines[0];
+    // newOverviewItem.description = faker.lorem.paragraph();
+    // const tagCount = randRange(1, 3);
+    // let tags = [];
+    // for (let i = 0; i < tagCount; i++) {
+    //   const newTag = faker.commerce.productAdjective();
+    //   if (tags.indexOf(newTag) < 0) {
+    //     tags.push(newTag);
+    //   }
+    // }
+    // newOverviewItem.tags = tags;
 
-    sampleOverviewItems.push(newOverviewItem);
+    // sampleOverviewItems.push(newOverviewItem);
   }
 }
 
 populateItems();
 
-console.log('About to write file');
-console.log(typeof sampleSidebarItems)
+exports.sampleSidebarItems = sampleSidebarItems;
+// const stringSampleSidebarItems = JSON.stringify(sampleSidebarItems);
 
-const stringSampleSidebarItems = JSON.stringify(sampleSidebarItems);
-
-
-fs.writeFile('sampleData.json', stringSampleSidebarItems, (err) => {
-  if (err) {
-    throw err;
-  }
-  return;
-});
-
-console.timeEnd('Time to seed');
-
-process.exit(-1);
+/* 
+  Turn data from JSON TO CSV format, so it can be piped to a  csv file.
+  
 
 
-// const insertSampleItems = () => {
-//   SidebarInfo.model.create(sampleSidebarItems)
-//     .then(() => {
-//       Overview.model.create(sampleOverviewItems)
-//         .then(() => {
-//           db.close()
-//         });
-//     });
-// };
+*/
 
-// insertSampleItems();
+// Console log for piping into gzip compression
+// console.log(stringSampleSidebarItems);
+
+
+// Write file for writing data into data.gz
+// fs.writeFile('sampleData.json', stringSampleSidebarItems, (err) => {
+//   if (err) {
+//     throw err;
+//   }
+//   console.timeEnd('Time to create JSON file w/ ', numberOfEntries, 'entries');
+//   return;
+// });
+
+
+// process.exit(0);
