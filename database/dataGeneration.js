@@ -7,17 +7,17 @@ const createCsvWriter = require('csv-writer').createObjectCsvWriter;
 const sampleSidebarItems = [];
 // poppulateItems creates 100 restaurants worth of data, all stored in sampleSidebarItems and sampleOverviewItems.
 
-const numberOfEntries = 1;
+const numberOfEntries = 1000000;
 console.time('Time to create JSON file w/ ', numberOfEntries, 'entries');
 
 const populateItems = () => {
   
 
   const randRange = (min, max) => (Math.floor(Math.random() * (max + 1 - min)) + min);
-  for (let restaurantId = 1; restaurantId <= numberOfEntries; restaurantId += 1) {
+  for (let restaurantID = 1; restaurantID <= numberOfEntries; restaurantID += 1) {
     let newSidebarItem = {};
 
-    newSidebarItem.restaurantId = restaurantId;
+    newSidebarItem.restaurantID = restaurantID;
     newSidebarItem.address = [faker.address.streetAddress(), faker.address.city(), faker.address.stateAbbr()].join(' ');
     newSidebarItem.neighborhood = faker.address.citySuffix();
     newSidebarItem.neighborhood = newSidebarItem.neighborhood.charAt(0).toUpperCase() + newSidebarItem.neighborhood.slice(1);
@@ -51,8 +51,6 @@ const populateItems = () => {
 
 populateItems();
 
-console.log('populate items: ', sampleSidebarItems)
-
 const csvWriter = createCsvWriter({
   path: __dirname + '/generatedData.csv',
   header: [
@@ -77,6 +75,7 @@ const csvWriter = createCsvWriter({
 
 csvWriter.writeRecords(sampleSidebarItems)
   .then(() => {
-      console.log('...Done');
-  });
+      console.timeEnd('Time to create JSON file w/ ', numberOfEntries, 'entries');
+      process.exit(0);
+    });
 
