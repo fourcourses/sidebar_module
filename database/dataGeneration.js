@@ -1,19 +1,17 @@
 const SidebarInfo = require('./SidebarInfo');
 const faker = require('faker');
 const db = require('./index.js');
-const csvWriter = require('csv-write-stream');
 const fs = require('fs');
-// const createCsvWriter = require('csv-writer').createObjectCsvWriter;
+const file = fs.createWriteStream('./database/generatedData.csv')
 
 const sampleSidebarItems = [];
 // poppulateItems creates 100 restaurants worth of data, all stored in sampleSidebarItems and sampleOverviewItems.
 
 const numberOfEntries = 10;
 console.time('Time to create JSON file w/ ' + numberOfEntries + ' entries');
+file.write('restaurantID,address,neighborhood,crossStreet,parking,dining,cuisines,hours,phone,website,payment,dress,chef\n');
 
-const writer = csvWriter();
 const populateItems = () => {
-  
 
   const randRange = (min, max) => (Math.floor(Math.random() * (max + 1 - min)) + min);
   for (let restaurantID = 1; restaurantID <= numberOfEntries; restaurantID += 1) {
@@ -31,12 +29,11 @@ const populateItems = () => {
     for (let i = 0; i < cuisineCount; i++) {
       cuisines.push(faker.commerce.productMaterial());
     };
-    cuisines = cuisines.join(', ');
-    
-    const hours = 'Monday - Friday, ' + randRange(1, 12) + ':00am - ' + randRange(1, 12) + ':00pm';
+    cuisines = '"' + cuisines.join(', ') + '"';
+    const hours = '"Monday - Friday, "' + randRange(1, 12) + ':00am - ' + randRange(1, 12) + ':00pm';
     const phone = faker.phone.phoneNumber();
     const website = faker.internet.url();
-    const payment = 'Visa, Discover, MasterCard';
+    const payment = '"Visa, Discover, MasterCard"';
     const dress = [faker.commerce.productAdjective(), faker.commerce.productMaterial()].join(' ');
     const chef = faker.name.findName();
       
@@ -46,11 +43,13 @@ const populateItems = () => {
     if (randRange(0, 2) === 2) {
       privateFacilities = faker.lorem.sentences();
     };
-    console.log(`${restaurantID},${address},${neighborhood},${crossStreet},${parking},${dining},${cuisines},${hours},${phone},${website},${payment},${dress},${chef}`);
-    }
+    let csvData = `${restaurantID},${address},${neighborhood},${crossStreet},${parking},${dining},${cuisines},${hours},${phone},${website},${payment},${dress},${chef}\n`;
+    file.write(csvData);
+  }
 }
 
 populateItems();
+
 
 console.log('end of file');
 // process.exit(0);
