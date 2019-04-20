@@ -7,15 +7,14 @@ const file = fs.createWriteStream('./database/generatedData.csv')
 const sampleSidebarItems = [];
 // poppulateItems creates 100 restaurants worth of data, all stored in sampleSidebarItems and sampleOverviewItems.
 
-const numberOfEntries = 10;
+const numberOfEntries = 10000000;
 console.time('Time to create JSON file w/ ' + numberOfEntries + ' entries');
 file.write('restaurantID,address,neighborhood,crossStreet,parking,dining,cuisines,hours,phone,website,payment,dress,chef\n');
 
-const populateItems = () => {
-
+const populateItems = async() => {
   const randRange = (min, max) => (Math.floor(Math.random() * (max + 1 - min)) + min);
   for (let restaurantID = 1; restaurantID <= numberOfEntries; restaurantID += 1) {
-
+    
     restaurantID = restaurantID;
     const address = [faker.address.streetAddress(), faker.address.city(), faker.address.stateAbbr()].join(' ');
     let neighborhood = faker.address.citySuffix();
@@ -23,7 +22,7 @@ const populateItems = () => {
     const crossStreet = [faker.address.streetName(), faker.address.streetName()].join(' and ');
     const parking = faker.lorem.sentences();
     const dining = faker.commerce.productAdjective();
-      
+    
     const cuisineCount = randRange(1, 3);
     let cuisines = [];
     for (let i = 0; i < cuisineCount; i++) {
@@ -36,7 +35,7 @@ const populateItems = () => {
     const payment = '"Visa, Discover, MasterCard"';
     const dress = [faker.commerce.productAdjective(), faker.commerce.productMaterial()].join(' ');
     const chef = faker.name.findName();
-      
+    
     if (randRange(0, 2) === 2) {
       catering = faker.lorem.sentences();
     };
@@ -44,11 +43,14 @@ const populateItems = () => {
       privateFacilities = faker.lorem.sentences();
     };
     let csvData = `${restaurantID},${address},${neighborhood},${crossStreet},${parking},${dining},${cuisines},${hours},${phone},${website},${payment},${dress},${chef}\n`;
-    file.write(csvData);
+    if(!file.write(csvData)) {
+      await new Promise(resolve => file.once('drain', resolve));
+    }
   }
 }
 
 populateItems();
+console.timeEnd('Time to create JSON file w/ ' + numberOfEntries + ' entries');
 
 
 console.log('end of file');
