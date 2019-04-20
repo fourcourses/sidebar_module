@@ -4,14 +4,10 @@ const db = require('./index.js');
 const fs = require('fs');
 const file = fs.createWriteStream('./database/generatedData.csv')
 
-const sampleSidebarItems = [];
-// poppulateItems creates 100 restaurants worth of data, all stored in sampleSidebarItems and sampleOverviewItems.
-
 const numberOfEntries = 10000000;
-console.time('Time to create JSON file w/ ' + numberOfEntries + ' entries');
 file.write('restaurantID,address,neighborhood,crossStreet,parking,dining,cuisines,hours,phone,website,payment,dress,chef\n');
 
-const populateItems = async() => {
+const populateItems = async(callback) => {
   const randRange = (min, max) => (Math.floor(Math.random() * (max + 1 - min)) + min);
   for (let restaurantID = 1; restaurantID <= numberOfEntries; restaurantID += 1) {
     
@@ -47,39 +43,9 @@ const populateItems = async() => {
       await new Promise(resolve => file.once('drain', resolve));
     }
   }
+  callback(process.uptime());
 }
 
-populateItems();
-console.timeEnd('Time to create JSON file w/ ' + numberOfEntries + ' entries');
-
-
-console.log('end of file');
-// process.exit(0);
-
-// const csvWriter = createCsvWriter({
-//   path: __dirname + '/100generatedData.csv',
-//   header: [
-//       {id: 'restaurantID', title: 'restaurantID'},
-//       {id: 'address', title: 'address'},
-//       {id: 'neighborhood', title: 'neighborhood'},
-//       {id: 'crossStreet', title: 'crossStreet'},
-//       {id: 'parking', title: 'parking'},
-//       {id: 'dining', title: 'dining'},
-//       {id: 'cuisines', title: 'cuisines'},
-//       {id: 'hours', title: 'hours'},
-//       {id: 'phone', title: 'phone'},
-//       {id: 'website', title: 'website'},
-//       {id: 'payment', title: 'payment'},
-//       {id: 'dress', title: 'dress'},
-//       {id: 'additional', title: 'additional'},
-//       {id: 'chef', title: 'chef'},
-//       {id: 'catering', title: 'catering'},
-//       {id: 'privateFacilities', title: 'privateFacilities'},
-//   ]
-// });
-
-// csvWriter.writeRecords(sampleSidebarItems)
-//   .then(() => {
-//       console.timeEnd('Time to create JSON file w/ ' + numberOfEntries + ' entries');
-//       process.exit(0);
-//     });
+populateItems((timeForDataGeneration) => {
+  console.log("Time for data generation: ", timeForDataGeneration, " seconds");
+});
