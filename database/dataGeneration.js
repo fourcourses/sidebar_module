@@ -7,8 +7,8 @@ const createCsvWriter = require('csv-writer').createObjectCsvWriter;
 const sampleSidebarItems = [];
 // poppulateItems creates 100 restaurants worth of data, all stored in sampleSidebarItems and sampleOverviewItems.
 
-const numberOfEntries = 1000000;
-console.time('Time to create JSON file w/ ', numberOfEntries, 'entries');
+const numberOfEntries = 100;
+console.time('Time to create JSON file w/ ' + numberOfEntries + ' entries');
 
 const populateItems = () => {
   
@@ -52,7 +52,7 @@ const populateItems = () => {
 populateItems();
 
 const csvWriter = createCsvWriter({
-  path: __dirname + '/generatedData.csv',
+  path: __dirname + '/100generatedData.csv',
   header: [
       {id: 'restaurantID', title: 'restaurantID'},
       {id: 'address', title: 'address'},
@@ -75,7 +75,7 @@ const csvWriter = createCsvWriter({
 
 csvWriter.writeRecords(sampleSidebarItems)
   .then(() => {
-      console.timeEnd('Time to create JSON file w/ ', numberOfEntries, 'entries');
+      console.timeEnd('Time to create JSON file w/ ' + numberOfEntries + ' entries');
       process.exit(0);
     });
 
