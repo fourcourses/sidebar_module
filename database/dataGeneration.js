@@ -4,8 +4,8 @@ const db = require('./index.js');
 const fs = require('fs');
 const file = fs.createWriteStream('./database/generatedData.csv')
 
-const numberOfEntries = 10000000;
-file.write('restaurantID,address,neighborhood,crossStreet,parking,dining,cuisines,hours,phone,website,payment,dress,chef\n');
+const numberOfEntries = 1e7;
+file.write('restaurantID,address,neighborhood,crossStreet,parking,dining,cuisines,hours,phone,website,payment,dress,chef,catering,privateFacilities\n');
 
 const populateItems = async(callback) => {
   const randRange = (min, max) => (Math.floor(Math.random() * (max + 1 - min)) + min);
@@ -25,20 +25,24 @@ const populateItems = async(callback) => {
       cuisines.push(faker.commerce.productMaterial());
     };
     cuisines = '"' + cuisines.join(', ') + '"';
-    const hours = '"Monday - Friday, "' + randRange(1, 12) + ':00am - ' + randRange(1, 12) + ':00pm';
+    const hours = `"Monday - Friday, ${randRange(1, 12)}:00am - ${randRange(1, 12)}:00pm"`;
     const phone = faker.phone.phoneNumber();
     const website = faker.internet.url();
     const payment = '"Visa, Discover, MasterCard"';
     const dress = [faker.commerce.productAdjective(), faker.commerce.productMaterial()].join(' ');
     const chef = faker.name.findName();
-    
     if (randRange(0, 2) === 2) {
       catering = faker.lorem.sentences();
+    } else {
+      catering = null;
     };
     if (randRange(0, 2) === 2) {
       privateFacilities = faker.lorem.sentences();
+    } else {
+      privateFacilities = null;
     };
-    let csvData = `${restaurantID},${address},${neighborhood},${crossStreet},${parking},${dining},${cuisines},${hours},${phone},${website},${payment},${dress},${chef}\n`;
+
+    let csvData = `${restaurantID},${address},${neighborhood},${crossStreet},${parking},${dining},${cuisines},${hours},${phone},${website},${payment},${dress},${chef},${catering},${privateFacilities}\n`;
     if(!file.write(csvData)) {
       await new Promise(resolve => file.once('drain', resolve));
     }
