@@ -43,7 +43,7 @@ const populateItems = async(callback) => {
     };
 
     let csvData = `${restaurantID},${address},${neighborhood},${crossStreet},${parking},${dining},${cuisines},${hours},${phone},${website},${payment},${dress},${chef},${catering},${privateFacilities}\n`;
-    if(!file.write(csvData)) {
+    if (!file.write(csvData)) {
       await new Promise(resolve => file.once('drain', resolve));
     }
   }
