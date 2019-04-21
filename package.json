@@ -14,7 +14,7 @@
     "server-dev": "nodemon server/index.js",
     "start": "node database/seed.js & node server/index.js",
     "db:setup": "node database/seed.js",
-    "data-generator": "node --max-old-space-size=5000 database/dataGeneration.js"
+    "data-generator": "node database/dataGeneration.js"
   },
   "dependencies": {
     "axios": "^0.18.0",
