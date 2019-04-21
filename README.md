@@ -1,7 +1,15 @@
 # sidebar
 
-> The sidebar module for the OpenTabs FEC. The sidebar module shows the important information for each restaurant (e.g. hours, dress code, cuisines, neighborhood, etc.). There is a map with address on top, when clicked it will open a new tab with Google Maps and the
-specific address.
+> The sidebar module for the OpenTabs FEC. The sidebar module shows the important information for each restaurant (e.g. hours, dress code, cuisines, neighborhood, etc.). There is a map with address on top, when clicked it will open a new tab with Google Maps and the specific address.
+
+# Set Up
+
+# CRUD API Endpoints
+
+| Endpoint                                | Type   | Operation                    |
+|-----------------------------------------|--------|------------------------------|
+| `/restaurants/:id`                             | GET    | Get restaurant information    |
+
 
 ## Related Projects
 
