@@ -1,7 +1,8 @@
 const db = require('./index.js')
 
-console.log('yo')
-const copyFile = '/home/harrisonywu/Documents/HRImmersive/SDC/sidebar/database/GeneratedData/sample100generatedData.csv'
+const numberOfEntries = 1e7;
+const copyFile = '/home/harrisonywu/Documents/HRImmersive/SDC/sidebar/database/GeneratedData/generatedData.csv'
 
-db.query(`COPY restaurant FROM '${copyFile}' (FORMAT CSV, DELIMITER(','), HEADER)`)
-  .then(() => console.log('restaurants saved!'))
+
+db.query(`COPY restaurants FROM '${copyFile}' (FORMAT CSV, DELIMITER(','), HEADER)`)
+  .then(() => console.log(`time to seed ${numberOfEntries}: `, process.uptime()))

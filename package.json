@@ -8,12 +8,13 @@
     "node": ">=6.13.0"
   },
   "scripts": {
+    "start": "npm run react && npm run server-dev",
     "test": "jest",
     "react-dev": "webpack -d --watch",
     "react": "webpack -p",
     "server-dev": "nodemon server/index.js",
     "data-generator": "node database/dataGeneration.js",
-    "db:seed": "psql postgres < database/PostgreSQL/dbInit.sql && node database/PostgreSQL/index.js && database/PostgreSQL/seed.js"
+    "db:seed": "psql postgres < database/PostgreSQL/dbInit.sql && node database/PostgreSQL/models/Restaurants.js && node database/PostgreSQL/seed.js"
   },
   "dependencies": {
     "axios": "^0.18.0",
@@ -24,6 +25,7 @@
     "express": "^4.16.4",
     "express-cassandra": "^2.3.0",
     "mongoose": "^5.4.21",
+    "nodemon": "^1.18.11",
     "pg": "^7.10.0",
     "sequelize": "^5.7.4"
   },

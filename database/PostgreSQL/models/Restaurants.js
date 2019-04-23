@@ -68,7 +68,12 @@ Restaurants.init({
     type: Sequelize.TEXT,
     allowNull: true,
   },
-}, {sequelize, modelName: 'restaurant'})
+}, 
+{ sequelize,
+  modelName: 'restaurant',
+  timestamps: false,
+  underscored: true,
+})
 
 sequelize.sync();
 
