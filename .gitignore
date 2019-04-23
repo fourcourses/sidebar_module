@@ -26,3 +26,8 @@ client/dist/bundle.js
 
 config.js
 
+# Database Password
+database/PostgreSQL/config.js
+
+# Import files created by Cassandra on Copy
+import*

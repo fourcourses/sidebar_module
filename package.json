@@ -12,18 +12,20 @@
     "react-dev": "webpack -d --watch",
     "react": "webpack -p",
     "server-dev": "nodemon server/index.js",
-    "start": "node database/seed.js & node server/index.js",
-    "db:setup": "node database/seed.js",
-    "data-generator": "node --max-old-space-size=5000 database/dataGeneration.js"
+    "data-generator": "node database/dataGeneration.js",
+    "db:seed": "psql postgres < database/PostgreSQL/dbInit.sql && node database/PostgreSQL/index.js && database/PostgreSQL/seed.js"
   },
   "dependencies": {
     "axios": "^0.18.0",
     "cassandra-driver": "^4.0.0",
     "cors": "^2.8.5",
+    "csv-write-stream": "^2.0.0",
     "csv-writer": "^1.3.0",
     "express": "^4.16.4",
+    "express-cassandra": "^2.3.0",
     "mongoose": "^5.4.21",
-    "pg": "^7.10.0"
+    "pg": "^7.10.0",
+    "sequelize": "^5.7.4"
   },
   "devDependencies": {
     "@babel/core": "^7.4.3",
