@@ -31,3 +31,6 @@ database/PostgreSQL/config.js
 
 # Import files created by Cassandra on Copy
 import*
+
+# Generated Data
+database/GeneratedData

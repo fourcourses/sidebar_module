@@ -1,8 +1,6 @@
-const SidebarInfo = require('./SidebarInfo');
 const faker = require('faker');
-const db = require('./index.js');
 const fs = require('fs');
-const file = fs.createWriteStream('./database/generatedData.csv')
+const file = fs.createWriteStream('./database/GeneratedData/generatedData.csv')
 
 const numberOfEntries = 1e7;
 file.write('restaurantID,address,neighborhood,crossStreet,parking,dining,cuisines,hours,phone,website,payment,dress,chef,catering,privateFacilities\n');
