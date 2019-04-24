@@ -6,7 +6,7 @@ const { Model } = Sequelize;
 class Restaurants extends Model {}
 
 Restaurants.init({
-  restaurantID: {
+  restaurant_id: {
     type: Sequelize.INTEGER,
     allowNull: false,
     primaryKey: true,
@@ -20,7 +20,7 @@ Restaurants.init({
     type: Sequelize.TEXT,
     allowNull: false,
   },
-  crossStreet : {
+  cross_street : {
     type: Sequelize.TEXT,
     allowNull: false,
   },
@@ -64,7 +64,7 @@ Restaurants.init({
     type: Sequelize.TEXT,
     allowNull: true,
   },
-  privateFacilities: {
+  private_facilities: {
     type: Sequelize.TEXT,
     allowNull: true,
   },
