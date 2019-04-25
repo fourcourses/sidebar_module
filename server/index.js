@@ -1,7 +1,9 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const SidebarInfoMongo = require('../database/MongoDB/SidebarInfoSchema');
-const SidebarInfoPostgres = require('../database/PostgreSQL/controllers/controllers.js')
+// const SidebarInfoMongo = require('../database/MongoDB/SidebarInfoSchema');
+// const SidebarInfoPostgres = require('../database/PostgreSQL/controllers/controllers.js');
+const SidebarInfoCassandra = require('../database/Cassandra/controllers/controllers.js');
+
 // const Overview = require('../database/Overview');
 const path = require('path');
 const cors = require('cors');
@@ -22,16 +24,11 @@ app.use('/restaurants/:id', express.static(path.join(__dirname, '/../client/dist
 // });
 
 // For Cassandra
-// This is unedited, please change
-// app.get('/api/restaurants/:id/info', (req, res) => {
-//   SidebarInfo.getSidebarInfo(req.params.id)
-//     .then(info => {
-//       res.send(info);
-//     });
+app.get('/api/restaurants/:id/info', SidebarInfoCassandra.findById);
 // });
 
 // For PostgreSQL
-app.get('/api/restaurants/:id/info', SidebarInfoPostgres.findById);
+// app.get('/api/restaurants/:id/info', SidebarInfoPostgres.findById);
 
 const server = app.listen(port, () => {
   console.log(`Now listening on port ${port}`);

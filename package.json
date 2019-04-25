@@ -14,7 +14,9 @@
     "react": "webpack -p",
     "server-dev": "nodemon server/index.js",
     "data-generator": "node database/dataGeneration.js",
-    "db:postgres-seed": "psql postgres < database/PostgreSQL/dbInit.sql && node database/PostgreSQL/models/Restaurants.js && node database/PostgreSQL/seed.js"
+    "db:postgres-seed": "psql postgres < database/PostgreSQL/dbInit.sql && node database/PostgreSQL/models/Restaurants.js && node database/PostgreSQL/seed.js",
+    "db:cassandra-seed":  "cqlsh --execute \"SOURCE '~/Documents/HRImmersive/SDC/sidebar/database/Cassandra/seedCassandra.cql'\""
+
   },
   "dependencies": {
     "axios": "^0.18.0",
