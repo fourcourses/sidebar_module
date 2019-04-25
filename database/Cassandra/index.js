@@ -37,21 +37,9 @@ var MyModel = models.loadSchema('RestaurantListing', {
     key:['restaurant_id'],
 });
 
-// MyModel or models.instance.RestaurantListing can now be used as the model instance
 console.log(models.instance.RestaurantListing === MyModel);
 
-// sync the schema definition with the cassandra database table
-// if the schema has not changed, the callback will fire immediately
-// otherwise express-cassandra will try to migrate the schema and fire the callback afterwards
 MyModel.syncDB(function(err, result) {
     if (err) throw err;
-    // result == true if any database schema was updated
-    // result == false if no schema change was detected in your models
 });
 
-// models.instance.RestaurantListing.findOne({restaurant_id:2}, function(err, listing) {
-//     if (err) {
-//         console.log('Find one: ', err);
-//     }
-//     console.log('Entry 2 found. It's address is ', listing.address);
-// })
