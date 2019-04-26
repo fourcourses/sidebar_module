@@ -15,8 +15,7 @@
     "server-dev": "nodemon server/index.js",
     "data-generator": "node database/dataGeneration.js",
     "db:postgres-seed": "psql postgres < database/PostgreSQL/dbInit.sql && node database/PostgreSQL/models/Restaurants.js && node database/PostgreSQL/seed.js",
-    "db:cassandra-seed":  "cqlsh --execute \"SOURCE '~/Documents/HRImmersive/SDC/sidebar/database/Cassandra/seedCassandra.cql'\""
-
+    "db:cassandra-seed": "cqlsh --execute \"SOURCE '~/Documents/HRImmersive/SDC/sidebar/database/Cassandra/seedCassandra.cql'\""
   },
   "dependencies": {
     "axios": "^0.18.0",
@@ -27,6 +26,7 @@
     "express": "^4.16.4",
     "express-cassandra": "^2.3.0",
     "mongoose": "^5.4.21",
+    "newrelic": "^5.7.0",
     "nodemon": "^1.18.11",
     "pg": "^7.10.0",
     "sequelize": "^5.7.4"

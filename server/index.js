@@ -1,3 +1,4 @@
+const nr = require('newrelic');
 const express = require('express');
 const bodyParser = require('body-parser');
 // const SidebarInfoMongo = require('../database/MongoDB/SidebarInfoSchema');
@@ -25,7 +26,6 @@ app.use('/restaurants/:id', express.static(path.join(__dirname, '/../client/dist
 
 // For Cassandra
 app.get('/api/restaurants/:id/info', SidebarInfoCassandra.findById);
-// });
 
 // For PostgreSQL
 // app.get('/api/restaurants/:id/info', SidebarInfoPostgres.findById);

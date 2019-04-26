@@ -1,3 +1,4 @@
+require('newrelic');
 var ExpressCassandra = require('express-cassandra');
 
 var models = ExpressCassandra.createClient({
