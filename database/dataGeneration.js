@@ -3,17 +3,17 @@ const fs = require('fs');
 const file = fs.createWriteStream('./database/GeneratedData/generatedData.csv')
 
 const numberOfEntries = 1e7;
-file.write('restaurantID,address,neighborhood,crossStreet,parking,dining,cuisines,hours,phone,website,payment,dress,chef,catering,privateFacilities\n');
+file.write('restaurant_id,address,neighborhood,cross_street,parking,dining,cuisines,hours,phone,website,payment,dress,chef,catering,private_facilities\n');
 
 const populateItems = async(callback) => {
   const randRange = (min, max) => (Math.floor(Math.random() * (max + 1 - min)) + min);
-  for (let restaurantID = 1; restaurantID <= numberOfEntries; restaurantID += 1) {
+  for (let restaurant_id = 1; restaurant_id <= numberOfEntries; restaurant_id += 1) {
     
-    restaurantID = restaurantID;
+    restaurant_id = restaurant_id;
     const address = [faker.address.streetAddress(), faker.address.city(), faker.address.stateAbbr()].join(' ');
     let neighborhood = faker.address.citySuffix();
     neighborhood = neighborhood.charAt(0).toUpperCase() + neighborhood.slice(1);
-    const crossStreet = [faker.address.streetName(), faker.address.streetName()].join(' and ');
+    const cross_street = [faker.address.streetName(), faker.address.streetName()].join(' and ');
     const parking = faker.lorem.sentences();
     const dining = faker.commerce.productAdjective();
     
@@ -35,12 +35,12 @@ const populateItems = async(callback) => {
       catering = null;
     };
     if (randRange(0, 2) === 2) {
-      privateFacilities = faker.lorem.sentences();
+      private_facilities = faker.lorem.sentences();
     } else {
-      privateFacilities = null;
+      private_facilities = null;
     };
-
-    let csvData = `${restaurantID},${address},${neighborhood},${crossStreet},${parking},${dining},${cuisines},${hours},${phone},${website},${payment},${dress},${chef},${catering},${privateFacilities}\n`;
+    
+    let csvData = `${restaurant_id},${address},${neighborhood},${cross_street},${parking},${dining},${cuisines},${hours},${phone},${website},${payment},${dress},${chef},${catering},${private_facilities}\n`;
     if (!file.write(csvData)) {
       await new Promise(resolve => file.once('drain', resolve));
     }

@@ -26,7 +26,17 @@
 
 ## Usage
 
-> TBD
+> 
+1. Set up connection to the database.
+2. Comment out the correct database endpoint in our server file.
+3. Run the following script in the project's root directory.
+```sh
+npm start
+```
+Then visit the following url - #id is any number between 1 and 1e7.
+localhost:3003/restaurants/#id
+
+
 
 ## Requirements
 
