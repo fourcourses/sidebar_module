@@ -39,9 +39,9 @@ const populateItems = async(callback) => {
     } else {
       private_facilities = null;
     };
-
+    
     let csvData = `${restaurant_id},${address},${neighborhood},${cross_street},${parking},${dining},${cuisines},${hours},${phone},${website},${payment},${dress},${chef},${catering},${private_facilities}\n`;
-    if(!file.write(csvData)) {
+    if (!file.write(csvData)) {
       await new Promise(resolve => file.once('drain', resolve));
     }
   }
