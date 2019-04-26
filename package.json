@@ -15,6 +15,7 @@
     "server-dev": "nodemon server/index.js",
     "data-generator": "node database/dataGeneration.js",
     "db:postgres-seed": "psql postgres < database/PostgreSQL/dbInit.sql && node database/PostgreSQL/models/Restaurants.js && node database/PostgreSQL/seed.js"
+    "data-generator": "node database/dataGeneration.js"
   },
   "dependencies": {
     "axios": "^0.18.0",
