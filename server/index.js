@@ -16,7 +16,7 @@ app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/restaurants/:id', express.static(path.join(__dirname, '/../client/dist')));
 
-//For mongo
+// For MongoDB
 // app.get('/api/restaurants/:id/info', (req, res) => {
 //   SidebarInfoMongo.getSidebarInfo(req.params.id)
 //     .then(info => {
