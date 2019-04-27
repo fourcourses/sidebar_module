@@ -1,0 +1,22 @@
+config:
+  target: 'http://localhost:3003/restaurants'
+  phases:
+    - duration: 100
+      arrivalRate: 100
+  defaults:
+    headers:
+      x-my-service-auth: '987401838271002188298567'
+  variables:  
+    ids_9_to_10_million: 
+      - "8593293"
+      - "9203912"
+      - "9920130"
+      - "9712390"
+      - "9999999"
+scenarios:
+- name: "Hit restaurant_id between 9 and 10 mill"
+  flow:
+    - loop: 
+      - get:
+          url: "/{{ ids_9_to_10_million }}"
+      count: 100
