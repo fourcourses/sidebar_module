@@ -36,3 +36,6 @@ import*
 
 # Generated Data
 database/GeneratedData
+
+#Amazon key pair
+Sidebar_module2.pem
