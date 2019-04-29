@@ -1,11 +1,9 @@
 const nr = require('newrelic');
 const express = require('express');
 const bodyParser = require('body-parser');
-// const SidebarInfoMongo = require('../database/MongoDB/SidebarInfoSchema');
-// const SidebarInfoPostgres = require('../database/PostgreSQL/controllers/controllers.js');
-const SidebarInfoCassandra = require('../database/Cassandra/controllers/controllers.js');
+const cassandra = require('cassandra-driver');
+const client = new cassandra.Client({ contactPoints: ['127.0.0.1'], localDataCenter: 'datacenter1', keyspace: 'Restaurants' });
 
-// const Overview = require('../database/Overview');
 const path = require('path');
 const cors = require('cors');
 
@@ -16,19 +14,17 @@ app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/restaurants/:id', express.static(path.join(__dirname, '/../client/dist')));
 
-// For MongoDB
-// app.get('/api/restaurants/:id/info', (req, res) => {
-//   SidebarInfoMongo.getSidebarInfo(req.params.id)
-//     .then(info => {
-//       res.send(info);
-//     });
-// });
+
+const findById = (req, res) => {
+  const query =`SELECT * FROM "RestaurantListing" WHERE restaurant_id = ?`;
+  const params = req.params.id;
+  client.execute(query, [ params ], { prepare: true})
+    .then(result => res.send(result.rows[0]))
+    .catch(err => console.log('Received an error while querying: ', err));
+}
 
 // For Cassandra
-app.get('/api/restaurants/:id/info', SidebarInfoCassandra.findById);
-
-// For PostgreSQL
-// app.get('/api/restaurants/:id/info', SidebarInfoPostgres.findById);
+app.get('/api/restaurants/:id/info', findById);
 
 const server = app.listen(port, () => {
   console.log(`Now listening on port ${port}`);
