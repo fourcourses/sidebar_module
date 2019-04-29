@@ -22,4 +22,4 @@ CREATE TABLE "RestaurantListing" (
   private_facilities text,
 );
 
-COPY "RestaurantListing" FROM '/home/harrisonywu/Documents/HRImmersive/SDC/sidebar/database/GeneratedData/generatedData.csv' with header=true;
+COPY "RestaurantListing" FROM '/home/harrisonywu/Documents/HRImmersive/SDC/sidebar/database/GeneratedData/sample100generatedData.csv' with header=true;
