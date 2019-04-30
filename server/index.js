@@ -24,8 +24,8 @@ const findById = (req, res) => {
   client.execute(query, [ params ], { prepare: true})
     .then(result => {
       result = result.rows[0]
-      // resultStringified = JSON.stringify(result);
-      // redisClient.setex(params, 3600, resultStringified);
+      resultStringified = JSON.stringify(result);
+      redisClient.setex(params, 3600, resultStringified);
       res.status(200);
       res.send(result);
       
@@ -40,20 +40,18 @@ const getCache = (req, res) => {
   let id = req.params.id;
   redisClient.get(id, (err, result) => {
     if (result) {
-      console.log('in the cache')
       res.send(result);
     } else {
-      console.log('not in the cache')
       findById(req, res);
     }
   })
 }
 
 //Redis Cache
-// app.get('/api/restaurants/:id/info', getCache);
+app.get('/api/restaurants/:id/info', getCache);
 
 //No Redis Cache
-app.get('/api/restaurants/:id/info', findById)
+// app.get('/api/restaurants/:id/info', findById)
 
 const server = app.listen(port, () => {
   console.log(`Now listening on port ${port}`);

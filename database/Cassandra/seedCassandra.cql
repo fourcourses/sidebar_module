@@ -22,4 +22,4 @@ CREATE TABLE "RestaurantListing" (
   private_facilities text,
 );
 
-COPY "RestaurantListing" FROM './database/GeneratedData/sample100generatedData.csv' with header=true;
+COPY "RestaurantListing" FROM './database/GeneratedData/generatedData.csv' with header=true;
