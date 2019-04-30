@@ -35,7 +35,7 @@ database/PostgreSQL/config.js
 import*
 
 # Generated Data
-database/GeneratedData
+database/GeneratedData/generatedData.csv
 
 #Amazon key pair
 Sidebar_module2.pem
