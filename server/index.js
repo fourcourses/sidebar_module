@@ -50,8 +50,8 @@ const getCache = (req, res) => {
 //Redis Cache
 app.get('/api/restaurants/:id/info', getCache);
 
-app.get('/loaderio-08d86e5aa899a6bdac0ffcffa2b25c48', (req, res) => {
-  res.send('loaderio-08d86e5aa899a6bdac0ffcffa2b25c48');
+app.get('/loaderio-827e05d201f2dfd0826cc3ee10342dc0', (req, res) => {
+  res.send('loaderio-827e05d201f2dfd0826cc3ee10342dc0');
 })
 //No Redis Cache
 // app.get('/api/restaurants/:id/info', findById)
